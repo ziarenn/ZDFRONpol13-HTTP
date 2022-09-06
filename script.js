@@ -150,7 +150,7 @@ const asyncFetchRequestPOST = async () => {
   };
   try {
     const response = await fetch(
-      "http://jsonpla321ceholder.typicode.com/posts/",
+      "http://jsonplaceholder.typicode.com/posts/",
       options
     );
     console.log(response);
@@ -161,4 +161,83 @@ const asyncFetchRequestPOST = async () => {
     console.error(err);
   }
 };
-asyncFetchRequestPOST();
+//asyncFetchRequestPOST();
+
+// 3. Metoda PUT
+// POST => tworzy nowe miejsce na dane i je tam wrzuca
+// PUT => weźmie sobie komórke danych, usunie stare dane i wrzuci nowe
+
+// a) XMlHttpRequest
+// b) Fetch API + then chain
+// c) Fetch API + async/await
+
+// 3. PUT (updating)
+
+// a) XMLHttpRequest
+const XMLPutRequest = () => {
+  const body = JSON.stringify({
+    id: 190,
+    title: "foo",
+    body: "bar",
+    userId: 1,
+  });
+
+  const request = new XMLHttpRequest();
+  request.open("PUT", "https://jsonplaceholder.typicode.com/posts/5");
+  request.send(body);
+  request.onload = function () {
+    console.log(request.response);
+  };
+  request.onerror = function () {
+    console.log("Something went wrong!");
+  };
+};
+//XMLPutRequest();
+
+// b) Fetch API + then chain
+const FetchAPIPut = () => {
+  const options = {
+    method: "PUT",
+    body: JSON.stringify({
+      id: 150,
+      title: "foo",
+      body: "bar",
+      userId: 7,
+    }),
+  };
+  fetch("https://jsonplaceholder.typicode.com/posts/5", options)
+    .then((res) => {
+      console.log(res.status);
+      return res.json();
+    })
+    .then((data) => console.log(data))
+    .catch((err) => console.error(err.code, err.message));
+};
+//FetchAPIPut();
+
+// c) Fetch API + async/await
+const FetchAPIPutAsync = async () => {
+  const options = {
+    method: "PUT",
+    body: JSON.stringify({
+      id: 150,
+      title: "foo",
+      body: "bar",
+      userId: 7,
+    }),
+    headers: {
+      "Content-type": "application/json; charset=UTF-8",
+    },
+  };
+  try {
+    const response = await fetch(
+      "https://jsonplaceholder.typicode.com/posts/5",
+      options
+    );
+    const data = await response.json();
+    console.log(response.status);
+    console.log(data);
+  } catch (err) {
+    console.error(err.code, err.message);
+  }
+};
