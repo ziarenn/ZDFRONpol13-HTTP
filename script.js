@@ -106,8 +106,59 @@ const XMLRequestPOST = (body) => {
     console.log(request.status);
     console.log(request.responseText);
   };
+
+  request.onerror = function () {
+    console.error("Something went wrong!");
+  };
 };
-XMLRequestPOST(data);
+//XMLRequestPOST(data);
 
 // JSON.parse: json => obj js
 // JSON.stringify: obj js => json
+
+// b) Fetch API + then chain
+
+const fetchRequestPOST = () => {
+  const options = {
+    method: "POST",
+    body: JSON.stringify({
+      name: "Andrew",
+      age: 30,
+    }),
+  };
+
+  fetch("http://jsonpla321ceholder.typicode.com/posts/", options)
+    .then((response) => {
+      console.log(response.status);
+      return response.json();
+    })
+    .then((data) => console.log(data))
+    .catch((err) => console.error(err));
+};
+// fetchRequestPOST();
+// fetchRequestGET();
+
+// c) Fetch API + async/await
+
+const asyncFetchRequestPOST = async () => {
+  const options = {
+    method: "POST",
+    body: JSON.stringify({
+      name: "Andrew",
+      age: 30,
+    }),
+  };
+  try {
+    const response = await fetch(
+      "http://jsonpla321ceholder.typicode.com/posts/",
+      options
+    );
+    console.log(response);
+    console.log(response.status);
+    const data = await response.json();
+    console.log(data);
+  } catch (err) {
+    console.error(err);
+  }
+};
+asyncFetchRequestPOST();
