@@ -55,13 +55,59 @@ const XMLRequestGET = () => {
     // console.log(request.responseText);
     const data = JSON.parse(request.responseText);
     console.log(data);
-
   };
 };
-XMLRequestGET();
-// wywolanie
+//XMLRequestGET();
+
 // b) Fetch API + then chain
+
+const fetchRequestGET = () => {
+  // 1. Wywołanie funkcji fetch, funkcja fetch domyślnie działa na metodzie GET
+  fetch("http://jsonplaceholder.typicode.com/todos/")
+    .then((response) => {
+      console.log(response);
+      return response.json();
+    })
+    .then((data) => {
+      console.log(data);
+    });
+};
+//.json()
+// 1. rs => json
+// 2. json => obiekty
+//fetchRequestGET();
+
 // c) Fetch API + async/await
 
+// async function fn1() {}
 
+// const fn = async function () {};
 
+const asyncFetchRequestGET = async () => {
+  const response = await fetch("http://jsonplaceholder.typicode.com/todos/");
+  const data = await response.json();
+  console.log(data);
+};
+//asyncFetchRequestGET();
+
+// 2. Metoda POST
+
+// a) XMLHttpRequest
+const data = JSON.stringify({
+  name: "Andrew",
+  age: 30,
+});
+const XMLRequestPOST = (body) => {
+  const request = new XMLHttpRequest();
+  request.open("POST", "http://jsonplaceholder.typicode.com/posts/");
+  request.send(body);
+  request.onload = function () {
+    console.log(request);
+    console.log(request.status);
+    console.log(request.responseText);
+  };
+};
+XMLRequestPOST(data);
+
+// JSON.parse: json => obj js
+// JSON.stringify: obj js => json
