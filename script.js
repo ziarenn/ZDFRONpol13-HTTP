@@ -241,3 +241,82 @@ const FetchAPIPutAsync = async () => {
     console.error(err.code, err.message);
   }
 };
+
+// 4. Metoda PATCH
+
+// PATCH aktualizuje pojedyncze czesci danych w bazie, mutuje dane, nazwy pól w obiekcie na serwerze i obiekcie wysyłanym muszą się zgadzać
+// request PATCH tak samo jak POST i PUT przyjmuje body
+
+// const person = {
+//   name: "Andrew",
+//   age: 30,
+//   married: true,
+// };
+
+// const body = JSON.stringify({
+//   age: 31,
+// });
+
+// person.age = 31
+
+// a) XMLHttpRequest
+
+const XMLRequestPATCH = () => {
+  const body = JSON.stringify({
+    id: 205,
+  });
+
+  const request = new XMLHttpRequest();
+  request.open("PATCH", "https://jsonplaceholder.typicode.com/posts/5");
+  request.send(body);
+  request.onload = function () {
+    console.log(request.status);
+  };
+  request.onerror = function () {
+    console.error("Something went wrong!");
+  };
+};
+//XMLRequestPATCH();
+
+// b) Fetch API + then chain
+
+const fetchRequestPATCH = () => {
+  const options = {
+    method: "PATCH",
+    body: JSON.stringify({
+      id: 205,
+    }),
+  };
+  fetch("https://jsonplaceholder.typicode.com/posts/5", options)
+    .then((response) => {
+      console.log(response.status);
+      return response.json();
+    })
+    .then((data) => console.log(data))
+    .catch((err) => console.error("Something went wrong!"));
+};
+//fetchRequestPATCH();
+
+// c) Fetch API + async/await
+
+const asyncFetchRequestPATCH = async () => {
+  const options = {
+    method: "PATCH",
+    body: JSON.stringify({
+      id: 205,
+    }),
+  };
+  try {
+    const response = await fetch(
+      "https://jsonplaceholder.typicode.com/posts/5",
+      options
+    );
+    console.log(response.status);
+    const data = await response.json();
+    console.log(data);
+  } catch (err) {
+    console.error("Something went wrong!", err);
+  }
+};
+asyncFetchRequestPATCH();
+// Nie zapominać o error handlingu!
