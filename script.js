@@ -267,6 +267,7 @@ const XMLRequestPATCH = () => {
   });
 
   const request = new XMLHttpRequest();
+
   request.open("PATCH", "https://jsonplaceholder.typicode.com/posts/5");
   request.send(body);
   request.onload = function () {
@@ -306,6 +307,7 @@ const asyncFetchRequestPATCH = async () => {
       id: 205,
     }),
   };
+
   try {
     const response = await fetch(
       "https://jsonplaceholder.typicode.com/posts/5",
@@ -318,5 +320,69 @@ const asyncFetchRequestPATCH = async () => {
     console.error("Something went wrong!", err);
   }
 };
-asyncFetchRequestPATCH();
+//asyncFetchRequestPATCH();
 // Nie zapominać o error handlingu!
+
+// 5. Metoda DELETE
+
+// DELETE usuwa zasoby w bazie danych
+
+// XMLHttpRequest
+
+const XMLRequestDELETE = (objId) => {
+  const request = new XMLHttpRequest();
+  request.open("DELETE", `https://jsonplaceholder.typicode.com/posts/${objId}`);
+  request.send();
+  request.onload = function () {
+    console.log(request.status);
+    const data = JSON.parse(request.responseText);
+    console.log(request.responseText);
+    console.log(data);
+  };
+  request.onerror = function () {
+    console.error("Something went wrong!");
+  };
+};
+// XMLRequestDELETE(1);
+// XMLRequestDELETE(2);
+// XMLRequestDELETE(3);
+// XMLRequestDELETE(4);
+
+// Fetch API + then chain
+
+const fetchRequestDELETE = () => {
+  // const options = {
+  //   method: "DELETE",
+  // };
+
+  fetch("https://jsonplaceholder.typicode.com/posts/5", { method: "DELETE" })
+    .then((response) => {
+      console.log(response.status);
+      return response.json();
+    })
+    .then((data) => console.log(data))
+    .catch((err) => console.error("Something went wrong", err));
+};
+//fetchRequestDELETE();
+// Fetch API + async/await
+
+const asyncFetchRequestDELETE = async () => {
+  try {
+    const response = await fetch(
+      "https://jsonplaceholder.typicode.com/posts/5",
+      {
+        method: "DELETE",
+      }
+    );
+    console.log(response.status);
+    const data = await response.json();
+    console.log(data);
+  } catch (err) {
+    console.error("Something went wrong!", err);
+  }
+};
+asyncFetchRequestDELETE();
+// a) error handling dla każdej funckji
+// b) sprawdź co się dzieje gdy odwołamy się w URLu do całej listy (/posts/), sprawdź co się dzieje gdy odwołamy się do konkretnego obiektu (/posts/1)
+// c) odpowiedz sobie na pytanie czy metoda DELETE potrzebuje body
+// d) sprawdź co dostajemy w response przy metodzie DELETE
