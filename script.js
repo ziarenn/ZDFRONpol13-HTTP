@@ -423,7 +423,7 @@ const fetchStocks = async () => {
   // g) (template string)
   console.log(`Amplitude: ${highValue - lowValue}`);
 };
-fetchStocks();
+//fetchStocks();
 
 // URL ZAWSZE JAWNY!!!!
 
@@ -444,3 +444,30 @@ fetchStocks();
 // console.log(str);
 // console.log(+str);
 // console.log(Number(str));
+
+const fetchFootballData = async () => {
+  const options = {
+    method: "GET",
+    headers: {
+      "X-Auth-Token": "1f020942fbbc4285b9af9c61c35c8ef5",
+    },
+  };
+
+  const response = await fetch(
+    "https://api.football-data.org/v2/competitions/CL/standings",
+    options
+  );
+
+  console.log(response);
+  console.log(response.status);
+  const data = await response.json();
+  console.log(data);
+};
+fetchFootballData();
+
+// Zad 3.
+
+// a) znajdź i wypisz nazwę rozgrywek
+// b) znajdź i wypisz sezon jako string (format np. 'Sezon 1977/78', 'Sezon 2001/2002'), można to zrobić przy pomocy daty rozpoczęcia i zakończenia sezonu (.slice())
+// c) wypisz ile jest grup w tym sezonie
+// d) wypisz liderów z każdej grupy
