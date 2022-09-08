@@ -381,8 +381,36 @@ const asyncFetchRequestDELETE = async () => {
     console.error("Something went wrong!", err);
   }
 };
-asyncFetchRequestDELETE();
+//asyncFetchRequestDELETE();
 // a) error handling dla każdej funckji
 // b) sprawdź co się dzieje gdy odwołamy się w URLu do całej listy (/posts/), sprawdź co się dzieje gdy odwołamy się do konkretnego obiektu (/posts/1)
 // c) odpowiedz sobie na pytanie czy metoda DELETE potrzebuje body
 // d) sprawdź co dostajemy w response przy metodzie DELETE
+
+// Zad 1.
+// https://www.alphavantage.co/query?function=TIME_SERIES_INTRADAY&symbol=IBM&interval=5min&apikey=twojapikey
+// a) Wykonaj GET request do podanego URLa bez parametru apikey, zanotuj co się dzieje
+// b) użyj async/await i fetch()
+// c) wykonaj console.log(response), response.status
+// d) metoda .json() i console.log(data)
+
+const fetchStocks = async () => {
+  const response = await fetch(
+    "https://www.alphavantage.co/query?function=TIME_SERIES_INTRADAY&symbol=IBM&interval=5min&apikey=MOF905T490J40QKZ"
+  );
+  console.log(response);
+  const data = await response.json();
+  console.log(data);
+};
+fetchStocks();
+
+// URL ZAWSZE JAWNY!!!!
+
+// // Zad2
+// // a) wyciągnij z otrzymanego obiektu obiekt 'Time Series (5min)
+// // b) rozbij ten obiekt na 2 listy: klucze i wartości (Object.entries(), Object.values(), Object.keys())
+// // c) z listy wartości powyciągaj wartości low (pole '3. low') (konwersja do liczby( Number())) .map()!!!
+// // d) odszukaj z tej listy najmniejszą wartość i wyświetl ją do konsoli 
+// // e) z listy wartości powyciągaj wartości high (pole '2. high')
+// // f) odszukaj z tej listy największą wartość i wyświetl ją do konsoli
+// // g) oblicz amplitude tych wartości (różnica między wartością najwięszką a najmniejszą)
