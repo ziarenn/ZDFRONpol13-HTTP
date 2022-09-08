@@ -398,19 +398,49 @@ const fetchStocks = async () => {
   const response = await fetch(
     "https://www.alphavantage.co/query?function=TIME_SERIES_INTRADAY&symbol=IBM&interval=5min&apikey=MOF905T490J40QKZ"
   );
-  console.log(response);
+
   const data = await response.json();
-  console.log(data);
+
+  // a) (Object.entries(), bracket notation)
+  const table = Object.entries(data["Time Series (5min)"]);
+
+  // b) (Object.keys(), Object.values() / .map())
+  const keys = table.map((el) => el[0]);
+  const values = table.map((el) => el[1]);
+
+  // c) (.map(), bracket notation)
+  const lowValues = values.map((el) => +el["3. low"]);
+
+  // d) (Math.min(), spread operator)
+  const lowValue = Math.min(...lowValues);
+
+  // e) (.map(), bracket notation)
+  const highValues = values.map((el) => +el["2. high"]);
+
+  // f) (Math.max(), spread operator)
+  const highValue = Math.max(...highValues);
+
+  // g) (template string)
+  console.log(`Amplitude: ${highValue - lowValue}`);
 };
 fetchStocks();
 
 // URL ZAWSZE JAWNY!!!!
 
 // // Zad2
-// // a) wyciągnij z otrzymanego obiektu obiekt 'Time Series (5min)
+// // a) wyciągnij z otrzymanego obiektu obiekt 'Time Series (5min) (bracket notations js)
 // // b) rozbij ten obiekt na 2 listy: klucze i wartości (Object.entries(), Object.values(), Object.keys())
 // // c) z listy wartości powyciągaj wartości low (pole '3. low') (konwersja do liczby( Number())) .map()!!!
-// // d) odszukaj z tej listy najmniejszą wartość i wyświetl ją do konsoli 
+// // d) odszukaj z tej listy najmniejszą wartość i wyświetl ją do konsoli
 // // e) z listy wartości powyciągaj wartości high (pole '2. high')
 // // f) odszukaj z tej listy największą wartość i wyświetl ją do konsoli
 // // g) oblicz amplitude tych wartości (różnica między wartością najwięszką a najmniejszą)
+
+// // const x = [1, 2, 3, 4, 5];
+// // console.log(x);
+// // console.log(...x);
+
+// const str = "123";
+// console.log(str);
+// console.log(+str);
+// console.log(Number(str));
