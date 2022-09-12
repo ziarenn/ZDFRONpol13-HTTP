@@ -457,11 +457,30 @@ const fetchFootballData = async () => {
     "https://api.football-data.org/v2/competitions/CL/standings",
     options
   );
-
-  console.log(response);
-  console.log(response.status);
   const data = await response.json();
-  console.log(data);
+
+
+  // a)
+  const competitionName = data.competition.name;
+  console.log(competitionName);
+
+  // b)
+  const seasonStartYear = +data.season.startDate.slice(0, 4);
+  // console.log(seasonStartYear);
+  const seasonEndYear = +data.season.endDate.slice(0, 4);
+  // console.log(seasonEndYear);
+  const season = `Sezon ${seasonStartYear}/${seasonEndYear}`;
+  console.log(season);
+
+  // c)
+  const groupCount = data.standings.length;
+  console.log(`W tym sezonie jest ${groupCount} grup.`);
+
+  // d)
+  // ['AFC AJAX', 'Bayern Munich']
+  const groupLeaders = data.standings.map((group) => group.table[0].team.name);
+  console.log("Liderzy grup: ");
+  groupLeaders.forEach((groupLeader) => console.log(groupLeader));
 };
 fetchFootballData();
 
